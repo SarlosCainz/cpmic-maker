@@ -1,0 +1,4 @@
+/.idea/
+/misc/static/
+/ui/node_modules
+*.local
