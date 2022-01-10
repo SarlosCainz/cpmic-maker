@@ -36,7 +36,6 @@ def api_img():
     data = {}
 
     item_id = util.get_param(params, "id", None)
-    app.logger.debug("id = {}".format(item_id))
     if item_id:
         db = util.init_db()
         q = Query()
@@ -63,6 +62,11 @@ def api_img():
 
     if response is None:
         abort(400)
+
+    image_size = image.size
+    response.headers["Access-Control-Expose-Headers"] = "image-width, image-height"
+    response.headers["image-width"] = image_size[0]
+    response.headers["image-height"] = image_size[1]
 
     return response
 

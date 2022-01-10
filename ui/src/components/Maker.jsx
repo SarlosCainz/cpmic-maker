@@ -2,7 +2,7 @@ import {useEffect, useState, useCallback, useContext} from "react";
 import axios from "axios";
 import {Button, Element, Form, Card, Modal} from "react-bulma-components";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faAngleLeft, faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import {faAngleLeft, faArrowCircleLeft, faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 
 import {AppContext} from "../app";
 
@@ -67,17 +67,9 @@ function Maker({item}) {
                 <Card.Header>
                     <Card.Header.Title>
                         <Element renderAs="a" onClick={appContext.itemSelect.deselect}>
-                            <FontAwesomeIcon icon={faAngleLeft} size="2x" color="#444"/>
+                            <FontAwesomeIcon icon={faArrowCircleLeft} size="2x" color="#444"/>
                         </Element>
-                        <Element textSize={5} style={{width: "100%"}} ml={2} mb={1}>{item.signature}</Element>
-                        <Element textAlign="right" style={{width: "100%"}}>
-                            <Element renderAs="a" onClick={toggleDelete}>
-                                <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#444" />
-                            </Element>
-                            <Element renderAs="a" ml={4} onClick={appContext.editor.open}>
-                                <FontAwesomeIcon icon={faEdit} size="lg" color="#444" />
-                            </Element>
-                        </Element>
+                        <Element textSize={5} ml={3} mb={1}>{item.signature}</Element>
                     </Card.Header.Title>
                 </Card.Header>
                 <Card.Content display="inline-flex" flexWrap="wrap">
@@ -98,6 +90,16 @@ function Maker({item}) {
                         </Button.Group>
                     </Element>
                 </Card.Content>
+                <Card.Footer>
+                    <Card.Footer.Item justifyContent="flex-end">
+                        <Element renderAs="a" onClick={toggleDelete}>
+                            <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#444"/>
+                        </Element>
+                        <Element renderAs="a" ml={4} onClick={appContext.editor.open}>
+                            <FontAwesomeIcon icon={faEdit} size="lg" color="#444"/>
+                        </Element>
+                    </Card.Footer.Item>
+                </Card.Footer>
             </Card>
             <Modal show={showDelete} onClose={toggleDelete}>
                 <Modal.Card>

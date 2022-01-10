@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  comic-maker:
+    image: sarlos/comic-maker
+    container_name: comic-maker
+    volumes:
+      - $PWD/static:/app/static
+    ports:
+      - 80:80
+    restart: unless-stopped

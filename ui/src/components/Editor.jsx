@@ -14,6 +14,8 @@ function Editor({item}) {
     const [position, setPosition] = useState(item.position);
     const [fontSize, setFontSize] = useState(item.font_size);
     const [img, setImg] = useState("");
+    const [imgWidth, setImgWidth] = useState(0);
+    const [imgHeight, setImgHeight] = useState(0);
     const [filename, setFilename] = useState("");
     const [uploadFile, setUploadFile] = useState(null);
     const [formData, setFormData] = useState(null);
@@ -45,6 +47,9 @@ function Editor({item}) {
                 URL.revokeObjectURL(img);
                 const url = URL.createObjectURL(res.data);
                 setImg(url);
+
+                setImgWidth(res.headers["image-width"])
+                setImgHeight(res.headers["image-height"])
             })
             .catch(err => {
                 alert(err);
@@ -52,8 +57,8 @@ function Editor({item}) {
     }, [quote, quoteX, quoteY, signature, position, fontSize, uploadFile]);
 
     useEffect( ()=>{
-        setReady(name && quote && signature  && uploadFile);
-    }, [name, quote, signature, uploadFile]);
+        setReady(name && quote && signature  && (uploadFile || item.id !== ""));
+    }, [name, quote, signature, uploadFile, item.id]);
 
     const handleChangeImage = useCallback( (e) => {
         const file = e.target.files[0];
@@ -126,12 +131,12 @@ function Editor({item}) {
                         </Form.Field>
                         <Form.Field>
                             <Form.Label>セリフ位置(X)</Form.Label>
-                            <input type="range" value={quoteX} min={0} max={350-fontSize}
+                            <input type="range" value={quoteX} min={0} max={imgWidth-fontSize}
                                    onChange={(e) => setQuoteX(e.target.value)}/>
                         </Form.Field>
                         <Form.Field>
                             <Form.Label>セリフ位置(Y)</Form.Label>
-                                <input type="range" value={quoteY} min={0} max={350}
+                                <input type="range" value={quoteY} min={0} max={imgHeight}
                                        onChange={(e) => setQuoteY(e.target.value)}/>
                         </Form.Field>
                         <Button.Group align="right">
