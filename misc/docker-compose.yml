@@ -1,9 +1,9 @@
 version: '2'
 
 services:
-  comic-maker:
-    image: sarlos/comic-maker
-    container_name: comic-maker
+  who-maker:
+    image: sarlos/who-maker
+    container_name: who-maker
     volumes:
       - $PWD/static:/app/static
     ports:
