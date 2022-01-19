@@ -12,18 +12,11 @@ def make(data, image, config, logger):
 
     draw = ImageDraw.ImageDraw(image)
 
-    quote = data["quote"]
-    signature = data["signature"]
-    if data["position"] == "behind":
-        quote = "{}\n{}".format(quote, signature)
-    else:
-        quote = "{}\n{}".format(signature, quote)
-
     font_path = os.path.join(config["static_dir"], config["font"])
     font_size = int(data["font_size"])
     draw.font = ImageFont.truetype(font_path, font_size)
 
-    lines = quote.splitlines()
+    lines = data["quote"].splitlines()
     x = int(data["quote_x"]) + len(lines) * (font_size * 0.6)
     y = int(data["quote_y"])
 

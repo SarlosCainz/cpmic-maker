@@ -11,7 +11,6 @@ function Editor({item}) {
     const [quoteX, setQuoteX] = useState(item.quote_x);
     const [quoteY, setQuoteY] = useState(item.quote_y);
     const [signature, setSignature] = useState(item.signature);
-    const [position, setPosition] = useState(item.position);
     const [fontSize, setFontSize] = useState(item.font_size);
     const [img, setImg] = useState("");
     const [imgWidth, setImgWidth] = useState(0);
@@ -29,7 +28,6 @@ function Editor({item}) {
         form.append("id", item.id);
         form.append("signature", signature);
         form.append("quote", quote);
-        form.append("position", position);
         form.append("font_size", fontSize);
         form.append("quote_x", quoteX);
         form.append("quote_y", quoteY);
@@ -54,7 +52,7 @@ function Editor({item}) {
             .catch(err => {
                 alert(err);
             });
-    }, [quote, quoteX, quoteY, signature, position, fontSize, uploadFile]);
+    }, [quote, quoteX, quoteY, signature, fontSize, uploadFile]);
 
     useEffect( ()=>{
         setReady(name && quote && signature  && (uploadFile || item.id !== ""));
@@ -98,15 +96,15 @@ function Editor({item}) {
                     </Element>
                     <Element flexGrow={2}>
                         <Form.Field>
-                            <Form.Label>キャラクター名</Form.Label>
-                            <Form.Input value={name} onChange={(e) => {
-                                setName(e.target.value)
+                            <Form.Label>タイトル</Form.Label>
+                            <Form.Input value={signature} onChange={(e) => {
+                                setSignature(e.target.value)
                             }}/>
                         </Form.Field>
                         <Form.Field>
-                            <Form.Label>決め台詞</Form.Label>
-                            <Form.Input value={signature} onChange={(e) => {
-                                setSignature(e.target.value)
+                            <Form.Label>キャラクター名</Form.Label>
+                            <Form.Input value={name} onChange={(e) => {
+                                setName(e.target.value)
                             }}/>
                         </Form.Field>
                         <Form.Field>
@@ -114,15 +112,6 @@ function Editor({item}) {
                             <Form.Textarea value={quote} onChange={(e) => {
                                 setQuote(e.target.value)
                             }} rows={3}/>
-                        </Form.Field>
-                        <Form.Field>
-                            <Form.Label>決め台詞の位置</Form.Label>
-                            <Form.Radio name="position" value="front"
-                                        onChange={(e)=>{setPosition(e.target.value)}}
-                                        checked={position === "front"}>台詞の前</Form.Radio>
-                            <Form.Radio name="position" value="behind"
-                                        onChange={(e)=>{setPosition(e.target.value)}}
-                                        checked={position === "behind"}>台詞の後</Form.Radio>
                         </Form.Field>
                         <Form.Field>
                             <Form.Label>フォントサイズ</Form.Label>

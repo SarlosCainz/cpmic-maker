@@ -9,10 +9,14 @@ import {AppContext} from "../app";
 function Maker({item}) {
     const appContext = useContext(AppContext);
     const [img, setImg] = useState("");
-    const [quote, setQuote] = useState(item.quote);
+    const [quote, setQuote] = useState();
     const [showDelete, setShowDelete] = useState(false);
     const [doDelete, setDoDelete] = useState(false);
     const [deleteMe, setDeleteMe] = useState();
+
+    useEffect(() => {
+        setQuote(item.quote);
+    }, [item]);
 
     useEffect(() => {
         const form = new FormData();
@@ -30,7 +34,7 @@ function Maker({item}) {
                 setImg(url);
             })
             .catch(api_error);
-    }, [item, quote]);
+    }, [quote]);
 
     useEffect( ()=>{
         setDoDelete(deleteMe === "delete me")
@@ -81,7 +85,7 @@ function Maker({item}) {
                             <Form.Field.Body>
                                 <Form.Textarea value={quote} onChange={e => {
                                     setQuote(e.target.value)
-                                }} cols={7} rows={4} placeholder="例) このあらいを作ったのは"/>
+                                }} cols={7} rows={4}/>
                             </Form.Field.Body>
                         </Form.Field>
                         <Button.Group align="right">

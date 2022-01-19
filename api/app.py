@@ -89,8 +89,6 @@ def api_save():
         image = Image.open(image_file)
         filename = util.get_image_path(config, data["id"])
         image.save(filename, "png")
-    else:
-        abort(400)
 
     db = util.init_db()
     q = Query()
