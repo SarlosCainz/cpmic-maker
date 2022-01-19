@@ -8,14 +8,14 @@ RELEASE_FILES := misc/docker-compose.yml \
 build: build-npm
 	docker build -t $(REGISTRY)/$(NAME)  .
 
-build-test: build-npm
-	docker build -t $(REGISTRY)/$(NAME):test .
+build-stage: build-npm
+	docker build -t $(REGISTRY)/$(NAME):stage .
 
-push:
+push: build
 	docker push $(REGISTRY)/$(NAME)
 
-push-test:
-	docker push $(REGISTRY)/$(NAME):test
+push-stage: build-stage
+	docker push $(REGISTRY)/$(NAME):stage
 
 build-npm:
 	cd ui && npm run build

@@ -9,7 +9,7 @@ import {AppContext} from "../app";
 function Maker({item}) {
     const appContext = useContext(AppContext);
     const [img, setImg] = useState("");
-    const [quote, setQuote] = useState();
+    const [quote, setQuote] = useState(item.quote);
     const [showDelete, setShowDelete] = useState(false);
     const [doDelete, setDoDelete] = useState(false);
     const [deleteMe, setDeleteMe] = useState();
